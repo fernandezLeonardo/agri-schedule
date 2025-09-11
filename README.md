@@ -1,1 +1,1 @@
-# agri-schedule
+# AgriSchedule
