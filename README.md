@@ -1,8 +1,13 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# 🌱 AgriSchedule
 
-## Getting Started
+**AgriSchedule** is a community farm management web app built for **Porters Community Farm** in Gainesville, FL.  
+It simplifies **volunteer scheduling**, **inventory tracking**, and **farm communications** — helping local farms and non-profits manage resources more efficiently.
 
-First, run the development server:
+---
+
+## 🚀 Getting Started
+
+### 1️⃣ Run the development server
 
 ```bash
 npm run dev
@@ -14,23 +19,56 @@ pnpm dev
 bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Then open [http://localhost:3000](http://localhost:3000) to view the site in your browser.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+---
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## 🧩 Project Overview
 
-## Learn More
+### 🎯 Purpose
+Porters Community Farm currently manages volunteers and inventory manually through spreadsheets and ad-hoc communication.  
+**AgriSchedule** centralizes those systems into a user-friendly platform.
 
-To learn more about Next.js, take a look at the following resources:
+### ✳️ Core Features
+- 🧑‍🌾 **Volunteer Scheduling** – Admins can post farm work shifts; volunteers can sign up, check in/out, and track their hours.  
+- 🧺 **Inventory Management** – Track farm tools, seeds, and produce, including conditions and quantities.  
+- 🧍‍♀️ **User Profiles** – Volunteers see their contribution history; admins view overall attendance and inventory reports.  
+- 📣 **Communication Tools** – Provide updates and reminders about shifts, tasks, or equipment needs.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+---
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## 🛠️ Tech Stack
 
-## Deploy on Vercel
+| Layer | Technologies |
+|:------|:--------------|
+| **Frontend** | [Next.js 15](https://nextjs.org), React 19, TypeScript |
+| **Styling** | [Tailwind CSS](https://tailwindcss.com) |
+| **Fonts** | [Geist Sans](https://vercel.com/font) & Geist Mono |
+| **Auth (planned)** | [NextAuth.js](https://next-auth.js.org) (Google / GitHub providers) |
+| **Deployment** | [Vercel](https://vercel.com) |
+| **Database (planned)** | PostgreSQL / Prisma ORM |
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+---
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## 📚 Learn More
+
+- [Next.js Documentation](https://nextjs.org/docs) – learn about Next.js features and API.  
+- [Tailwind CSS Docs](https://tailwindcss.com/docs) – utility-first CSS framework.  
+- [NextAuth.js Guide](https://next-auth.js.org) – authentication for Next.js.  
+- [Vercel Deployment Docs](https://vercel.com/docs) – deploy your Next.js project easily.
+
+---
+
+## 🌍 Deploy on Vercel
+
+The easiest way to deploy **AgriSchedule** is through the [Vercel Platform](https://vercel.com/new?filter=next.js&utm_source=create-next-app&utm_campaign=next-template).  
+Check out the [deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+
+---
+
+## 💚 Credits
+
+Developed by the **Code Harvest team** at the **University of Florida**  
+for **Porters Community Farm**, Gainesville, FL.  
+
+> “Grow together.” 🌱
