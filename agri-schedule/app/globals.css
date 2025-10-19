@@ -26,9 +26,12 @@ body {
 }
 
 :root {
---background: #ffffff;
---foreground: #171717;
---agri-forest: #2E7D32; /* primary */
---agri-sage: #8BC34A; /* soft green */
---agri-sun: #F4A261; /* accent */
+  --background: #ffffff;
+  --foreground: #171717;
+  --agri-forest: #2E7D32;
+  /* primary */
+  --agri-sage: #8BC34A;
+  /* soft green */
+  --agri-sun: #F4A261;
+  /* accent */
 }
