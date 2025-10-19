@@ -119,12 +119,6 @@ export default function LoginPage() {
               </div>
 
               <div className="flex items-center justify-between">
-                <label className="flex items-center gap-2 text-sm">
-                  <input type="checkbox" className="h-4 w-4 rounded border-foreground/30" /> Remember me
-                </label>
-                <Link href="/reset" className="text-sm text-[#2E7D32] hover:underline">
-                  Forgot password?
-                </Link>
               </div>
 
               <button
@@ -139,23 +133,7 @@ export default function LoginPage() {
                 <div className="absolute left-0 right-0 top-1/2 -translate-y-1/2 h-px bg-foreground/10" />
               </div>
 
-              <div className="grid grid-cols-1 gap-3">
-                <button type="button" className="inline-flex items-center justify-center gap-2 rounded-xl border border-foreground/15 bg-background py-2.5 hover:bg-foreground/5">
-                  {/* Google icon */}
-                  <svg viewBox="0 0 24 24" className="h-5 w-5" aria-hidden>
-                    <path d="M21.6 12.227c0-.638-.057-1.252-.163-1.84H12v3.48h5.38a4.6 4.6 0 0 1-2 3.017v2.5h3.24c1.9-1.747 2.98-4.322 2.98-7.157Z" fill="#4285F4" />
-                    <path d="M12 22c2.7 0 4.96-.894 6.614-2.423l-3.24-2.5c-.9.6-2.06.957-3.374.957-2.594 0-4.79-1.752-5.574-4.106H3.09v2.58A10 10 0 0 0 12 22Z" fill="#34A853" />
-                    <path d="M6.426 13.93A6.01 6.01 0 0 1 6.11 12c0-.67.115-1.31.316-1.93V7.49H3.09A10 10 0 0 0 2 12c0 1.62.388 3.15 1.09 4.51l3.336-2.58Z" fill="#FBBC05" />
-                    <path d="M12 6.4c1.47 0 2.79.505 3.83 1.49l2.87-2.87C16.96 3.3 14.7 2.4 12 2.4 8.09 2.4 4.7 4.64 3.09 7.49l3.336 2.58C7.21 8.15 9.41 6.4 12 6.4Z" fill="#EA4335" />
-                  </svg>
-                  <span className="text-sm font-medium">Google</span>
-                </button>
-              </div>
 
-              <p className="text-xs text-foreground/60">
-                By continuing you agree to our <Link href="/terms" className="underline">Terms</Link> and{" "}
-                <Link href="/privacy" className="underline">Privacy Policy</Link>.
-              </p>
             </form>
 
             <div className="mt-6 text-sm text-foreground/80">
