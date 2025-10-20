@@ -17,11 +17,11 @@ const base =
 
 const variants: Record<Variant, string> = {
     primary:
-        "bg-[#2E7D32] text-white shadow-sm hover:brightness-110 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#2E7D32]/30",
+        "bg-[#2E7D32] text-white shadow-sm hover:bg-[#1B5E20] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#2E7D32]/30 transition-colors",
     outline:
-        "border border-foreground/15 bg-background hover:bg-foreground/5",
+        "border-2 border-[#2E7D32] bg-transparent text-[#2E7D32] hover:bg-[#2E7D32] hover:text-white transition-colors",
     ghost:
-        "hover:bg-foreground/5",
+        "text-[#2E7D32] hover:bg-[#2E7D32]/10 hover:text-[#1B5E20]",
 };
 
 
