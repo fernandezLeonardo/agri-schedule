@@ -24,16 +24,6 @@
   --font-mono: var(--font-geist-mono);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #1a2f1a;
-    /* dark mint green for dark mode */
-    --foreground: #e8f5e8;
-    /* light mint text for dark mode */
-    --mint-light: #2d4a2d;
-    --mint-medium: #3d5a3d;
-  }
-}
 
 body {
   background: var(--background);
