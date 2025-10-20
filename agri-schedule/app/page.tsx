@@ -100,7 +100,7 @@ export default function Home() {
             Development Team
           </div>
           <div className="flex flex-wrap justify-center gap-x-6 gap-y-2 text-sm">
-            <span className="text-[#2E7D32] font-medium">Leo Fernandez</span>
+            <span className="text-[#2E7D32] font-medium">Leonardo Fernandez</span>
             <span className="text-[#2E7D32] font-medium">Liliana Lusvardi</span>
             <span className="text-[#2E7D32] font-medium">Chris Oeltjen</span>
           </div>

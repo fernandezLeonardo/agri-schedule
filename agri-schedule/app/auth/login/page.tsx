@@ -3,13 +3,33 @@
 
 import Link from "next/link";
 import { useState, type FormEvent } from "react";
+import { useRouter } from "next/navigation";
 
 export default function LoginPage() {
   const [showPassword, setShowPassword] = useState(false);
+    const router = useRouter();
 
-  function onSubmit(e: FormEvent<HTMLFormElement>) {
+  async function onSubmit(e: FormEvent<HTMLFormElement>) {
     e.preventDefault();
-    // TODO: hook up credentials / server action / NextAuth
+    
+    // TODO: This is bare bones
+    const data = new FormData(e.currentTarget)
+    const email = data.get("email")
+    const password = data.get("password")
+
+    const res = await fetch("/api/login", {
+      method: "POST",
+      headers: {"Content-Type" : "application/json"},
+      body: JSON.stringify({email, password})
+    })
+
+    const msg = await res.json()
+      if (msg.message === "Welcome!"){
+        router.push("/volunteer");//make another if statement for if they are admin
+      }
+      else{
+        // reset page
+      }
   }
 
   return (
