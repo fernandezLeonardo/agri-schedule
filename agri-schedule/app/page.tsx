@@ -1,5 +1,6 @@
 // app/page.tsx
 import Link from "next/link";
+import { Button } from "@/components/ui/button";
 
 export default function Home() {
   return (
@@ -31,35 +32,84 @@ export default function Home() {
         </p>
 
         <div className="mt-8 flex flex-col sm:flex-row items-center justify-center gap-3">
-          <Link
-            href="/auth/login"
-            className="rounded-xl px-5 py-2.5 bg-[#2E7D32] text-white font-medium shadow-sm hover:brightness-110 active:scale-[0.99] transition"
-          >
-            Sign in
+          <Link href="/auth/login">
+            <Button variant="primary" className="px-6 py-3 text-base">
+              Sign in
+            </Button>
           </Link>
-          <Link
-            href="/auth/register"
-            className="rounded-xl px-5 py-2.5 border border-foreground/15 bg-background hover:bg-foreground/5 font-medium"
-          >
-            Create account
+          <Link href="/auth/register">
+            <Button variant="outline" className="px-6 py-3 text-base">
+              Create account
+            </Button>
           </Link>
         </div>
 
-        <div className="mt-10 grid grid-cols-1 sm:grid-cols-3 gap-3 text-sm">
-          <div className="rounded-xl border border-foreground/10 p-4">
-            Volunteer Scheduling
+        <div className="mt-10 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 text-sm">
+          <Link href="/volunteer" className="block">
+            <div className="rounded-xl border border-[#2E7D32]/20 bg-white/70 backdrop-blur-sm p-4 shadow-sm hover:shadow-lg hover:scale-[1.02] transition-all cursor-pointer group">
+              <div className="flex items-center gap-2 mb-2">
+                <svg viewBox="0 0 24 24" className="h-4 w-4 text-[#2E7D32]" fill="currentColor">
+                  <path d="M16 4c0-1.11.89-2 2-2s2 .89 2 2-.89 2-2 2-2-.89-2-2zm4 18v-6h2.5l-2.54-7.63A1.5 1.5 0 0 0 18.54 8H16c-.8 0-1.54.37-2.01 1l-2.99 4-.74-1.48A1.5 1.5 0 0 0 9 11H3c-.83 0-1.5.67-1.5 1.5S2.17 14 3 14h5.5l1.5 3h9v5z"/>
+                </svg>
+                <div className="font-semibold text-[#2E7D32] group-hover:text-[#1B5E20]">Volunteer Scheduling</div>
+              </div>
+              <div className="text-xs text-foreground/70">Organize farm shifts efficiently</div>
+            </div>
+          </Link>
+          
+          <Link href="/inventory" className="block">
+            <div className="rounded-xl border border-[#2E7D32]/20 bg-white/70 backdrop-blur-sm p-4 shadow-sm hover:shadow-lg hover:scale-[1.02] transition-all cursor-pointer group">
+              <div className="flex items-center gap-2 mb-2">
+                <svg viewBox="0 0 24 24" className="h-4 w-4 text-[#2E7D32]" fill="currentColor">
+                  <path d="M20 2H4c-1 0-2 .9-2 2v3.01c0 .72.43 1.34 1 1.69V20c0 1.1 1.1 2 2 2h14c.9 0 2-.9 2-2V8.7c.57-.35 1-.97 1-1.69V4c0-1.1-1-2-2-2zm0 5H4V4h16v3z"/>
+              </svg>
+              <div className="font-semibold text-[#2E7D32] group-hover:text-[#1B5E20]">Inventory Management</div>
+            </div>
+            <div className="text-xs text-foreground/70">Track tools, seeds & produce</div>
           </div>
-          <div className="rounded-xl border border-foreground/10 p-4">
-            Inventory Management
+        </Link>
+        
+        <Link href="/reports" className="block">
+          <div className="rounded-xl border border-[#2E7D32]/20 bg-white/70 backdrop-blur-sm p-4 shadow-sm hover:shadow-lg hover:scale-[1.02] transition-all cursor-pointer group">
+            <div className="flex items-center gap-2 mb-2">
+              <svg viewBox="0 0 24 24" className="h-4 w-4 text-[#2E7D32]" fill="currentColor">
+                <path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zM9 17H7v-7h2v7zm4 0h-2V7h2v10zm4 0h-2v-4h2v4z"/>
+              </svg>
+              <div className="font-semibold text-[#2E7D32] group-hover:text-[#1B5E20]">Reports & Analytics</div>
+            </div>
+            <div className="text-xs text-foreground/70">Farm performance insights</div>
           </div>
-          <div className="rounded-xl border border-foreground/10 p-4">
-            Reports & Profiles
+        </Link>
+        
+        <Link href="/profiles" className="block">
+          <div className="rounded-xl border border-[#2E7D32]/20 bg-white/70 backdrop-blur-sm p-4 shadow-sm hover:shadow-lg hover:scale-[1.02] transition-all cursor-pointer group">
+            <div className="flex items-center gap-2 mb-2">
+              <svg viewBox="0 0 24 24" className="h-4 w-4 text-[#2E7D32]" fill="currentColor">
+                <path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/>
+              </svg>
+              <div className="font-semibold text-[#2E7D32] group-hover:text-[#1B5E20]">Volunteer Profiles</div>
+            </div>
+            <div className="text-xs text-foreground/70">Manage volunteer information</div>
+          </div>
+        </Link>
+      </div>
+
+        {/* Team Credits */}
+        <div className="mt-16 pt-8 border-t border-[#2E7D32]/20">
+          <div className="text-xs uppercase tracking-wider text-[#2E7D32]/70 mb-3">
+            Development Team
+          </div>
+          <div className="flex flex-wrap justify-center gap-x-6 gap-y-2 text-sm">
+            <span className="text-[#2E7D32] font-medium">Leonardo Fernandez</span>
+            <span className="text-[#2E7D32] font-medium">Liliana Lusvardi</span>
+            <span className="text-[#2E7D32] font-medium">Chris Oeltjen</span>
           </div>
         </div>
       </section>
 
-      {/* Subtle “sunrise” background flourish */}
-      <div className="pointer-events-none fixed inset-x-0 top-0 -z-10 h-72 bg-gradient-to-br from-[#2E7D32]/20 via-[#8BC34A]/20 to-[#F4A261]/20 blur-2xl" />
+      {/* Enhanced background flourish with mint green theme */}
+      <div className="pointer-events-none fixed inset-x-0 top-0 -z-10 h-72 bg-gradient-to-br from-[#2E7D32]/15 via-[#8BC34A]/10 to-[#F4A261]/15 blur-3xl" />
+      <div className="pointer-events-none fixed inset-0 -z-20 bg-gradient-to-b from-transparent via-[#f0f9f0]/50 to-[#e8f5e8]/30" />
     </main>
   );
 }

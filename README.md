@@ -9,6 +9,8 @@ It simplifies **volunteer scheduling**, **inventory tracking**, and **farm commu
 
 ### 1️⃣ Run the development server
 
+npm install 
+
 ```bash
 npm run dev
 # or
