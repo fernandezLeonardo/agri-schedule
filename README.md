@@ -48,7 +48,7 @@ Porters Community Farm currently manages volunteers and inventory manually throu
 | **Fonts** | [Geist Sans](https://vercel.com/font) & Geist Mono |
 | **Auth (planned)** | [NextAuth.js](https://next-auth.js.org) (Google / GitHub providers) |
 | **Deployment** | [Vercel](https://vercel.com) |
-| **Database (planned)** | PostgreSQL / Prisma ORM |
+| **Database** | Amazon AWS RDS / MySQL / Prisma ORM |
 
 ---
 
