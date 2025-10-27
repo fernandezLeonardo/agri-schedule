@@ -28,7 +28,7 @@ export default function RegisterPage() {
         router.push("/");
       }
       else{
-        // reset page
+        router.push("/auth/register");
       }
     }
 

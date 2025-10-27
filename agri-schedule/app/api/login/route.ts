@@ -1,8 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 
-export async function POST(req: NextRequest){
+export async function GET(req: NextRequest){
     const body = await req.json();
-    //database or something
     console.log(body.email, body.password);
     const email = body.email;
     const password = body.password;
