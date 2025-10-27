@@ -15,6 +15,5 @@ export async function POST(req: NextRequest){
         } 
     });
     
-    console.log(email, password);
     return NextResponse.json({message: "Registration successful!"})
 }

@@ -7,29 +7,33 @@ import { useRouter } from "next/navigation";
 
 export default function LoginPage() {
   const [showPassword, setShowPassword] = useState(false);
-    const router = useRouter();
+  const [message, setMessage] = useState("Grow together.");
+  const router = useRouter();
 
   async function onSubmit(e: FormEvent<HTMLFormElement>) {
     e.preventDefault();
     
-    // TODO: This is bare bones
     const data = new FormData(e.currentTarget)
     const email = data.get("email")
     const password = data.get("password")
 
     const res = await fetch("/api/login", {
-      method: "GET",
+      method: "POST",
       headers: {"Content-Type" : "application/json"},
       body: JSON.stringify({email, password})
     })
 
     const msg = await res.json()
-      if (msg.message === "Welcome!"){
-        router.push("/volunteer");//make another if statement for if they are admin
-      }
-      else{
-        // reset page
-      }
+    setMessage(msg.message);
+    if (msg.message === "Welcome Volunteer!"){
+      setTimeout(()=>router.push("/volunteer"), 1000)
+    }
+    else if (msg.message === "Welcome Admin!"){
+      setTimeout(()=>router.push("/admin"), 1000)
+    }
+    else{
+      router.push("/auth/login");
+    }
   }
 
   return (
@@ -66,7 +70,7 @@ export default function LoginPage() {
           </header>
 
           <div className="max-w-md">
-            <h2 className="text-white text-4xl font-semibold leading-tight">Grow together.</h2>
+            <h2 className="text-white text-4xl font-semibold leading-tight">{message}</h2>
             <p className="mt-3 text-white/90 text-lg">
               Coordinate volunteers, track tools & produce, and keep the farm running smoothly — all in one place.
             </p>
