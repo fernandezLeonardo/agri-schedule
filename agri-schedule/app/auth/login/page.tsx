@@ -18,7 +18,7 @@ export default function LoginPage() {
     const password = data.get("password")
 
     const res = await fetch("/api/login", {
-      method: "POST",
+      method: "GET",
       headers: {"Content-Type" : "application/json"},
       body: JSON.stringify({email, password})
     })
@@ -26,10 +26,10 @@ export default function LoginPage() {
     const msg = await res.json()
     setMessage(msg.message);
     if (msg.message === "Welcome Volunteer!"){
-      setTimeout(()=>router.push("/volunteer"), 1000)
+      setTimeout(()=>router.push("/volunteer"), 500)
     }
     else if (msg.message === "Welcome Admin!"){
-      setTimeout(()=>router.push("/admin"), 1000)
+      setTimeout(()=>router.push("/admin"), 500)
     }
     else{
       router.push("/auth/login");
