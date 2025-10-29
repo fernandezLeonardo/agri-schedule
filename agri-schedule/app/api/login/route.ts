@@ -2,6 +2,7 @@ import { PrismaClient } from "@/lib/generated/prisma";
 import { NextRequest, NextResponse } from "next/server";
 import { InitiateAuthCommand } from "@aws-sdk/client-cognito-identity-provider";
 import { cognitoClient } from "@/lib/cognito";
+import { matchesGlob } from "path";
 
 const prisma = new PrismaClient();
 
@@ -19,8 +20,18 @@ export async function POST(req: NextRequest){
         },
         ClientId: process.env.CLIENT_ID,
     });
-
     const login = await cognitoClient.send(command);
     const tokens = login.AuthenticationResult;
-    return NextResponse.json(tokens);
+    const user = await prisma.user.findUnique({
+        where: {
+            email: email,
+        }
+    })
+    let msg;
+    if (user?.role === "VOLUNTEER"){
+        msg = "Welcome Volunteer!"
+    } else {
+        msg = "Welcome Admin!"
+    }
+    return NextResponse.json({message:  msg, tokens});
 }

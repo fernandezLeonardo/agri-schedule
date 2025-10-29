@@ -23,12 +23,31 @@ export default function LoginPage() {
       body: JSON.stringify({email, password})
     })
 
-    const tokens = await res.json()
-    fetch ("/volunteer", {
-      headers: {
-        Authorization: tokens.AccessToken,
-      }
-    })
+    const response = await res.json()
+    const message = response.message
+    const tokens = response.tokens
+
+    setMessage(message)
+    console.log(message);
+    if (message === "Welcome Volunteer!"){
+      // Validate token
+      fetch ("/api/volunteer", {
+        method: "POST",
+        headers: {
+          Authorization: tokens.AccessToken,
+        }
+      })
+      router.push("/volunteer")
+    } else {
+      // Validate token
+      fetch ("/api/admin", {
+        method: "POST",
+        headers: {
+          Authorization: tokens.AccessToken,
+        }
+      })
+      router.push("/admin")
+    }
   }
 
   return (
