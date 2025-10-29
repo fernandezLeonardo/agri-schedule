@@ -23,17 +23,12 @@ export default function LoginPage() {
       body: JSON.stringify({email, password})
     })
 
-    const msg = await res.json()
-    setMessage(msg.message);
-    if (msg.message === "Welcome Volunteer!"){
-      setTimeout(()=>router.push("/volunteer"), 500)
-    }
-    else if (msg.message === "Welcome Admin!"){
-      setTimeout(()=>router.push("/admin"), 500)
-    }
-    else{
-      router.push("/auth/login");
-    }
+    const tokens = await res.json()
+    fetch ("/volunteer", {
+      headers: {
+        Authorization: tokens.AccessToken,
+      }
+    })
   }
 
   return (

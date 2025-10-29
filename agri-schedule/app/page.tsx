@@ -32,7 +32,7 @@ export default function Home() {
         </p>
 
         <div className="mt-8 flex flex-col sm:flex-row items-center justify-center gap-3">
-          <Link href="/api/login">
+          <Link href="/auth/login">
             <Button variant="primary" className="px-6 py-3 text-base">
               Sign in
             </Button>
