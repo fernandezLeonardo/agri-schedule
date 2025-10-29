@@ -1,7 +1,8 @@
 import { NextRequest, NextResponse } from "next/server";
 import { PrismaClient } from "@/lib/generated/prisma";
-import { SignUpCommand  } from "@aws-sdk/client-cognito-identity-provider";
+import { SignUpCommand } from "@aws-sdk/client-cognito-identity-provider";
 import { cognitoClient } from "@/lib/cognito";
+import { error } from "console";
 
 const prisma = new PrismaClient();
 
@@ -19,7 +20,16 @@ export async function POST(req: NextRequest){
     });
 
     try{
-        await cognitoClient.send(command);
+        const register = await cognitoClient.send(command);
+        if (!register.UserSub) {throw new Error("No CognitoID returned. Error 500.")}
+        await prisma.user.create({
+            data: { 
+                id: register.UserSub,
+                email: email,
+                password: password, 
+            },
+
+        })
     } catch (error: any){
         return NextResponse.json({message: error.message})
     }
