@@ -9,7 +9,21 @@ It simplifies **volunteer scheduling**, **inventory tracking**, and **farm commu
 
 ### 1️⃣ Run the development server
 
-npm install 
+npm install
+
+then create a .env to store values for Prisma and Cognito
+
+# REMOVE LATER, PRIVATE DEV USE ONLY
+#### Prisma Values
+```bash
+DATABASE_URL="mysql://admin:3GB84Sl58V5Az8vJQTgy@database-1.crqegig6o0qv.us-east-2.rds.amazonaws.com:3306/database-1"
+```
+
+#### Cognito Values
+```bash
+USER_POOL_ID="us-east-2_LdWryHu94"
+CLIENT_ID="6m7lm83q4htso0s0hhfuf41shn"
+```
 
 ```bash
 npm run dev
