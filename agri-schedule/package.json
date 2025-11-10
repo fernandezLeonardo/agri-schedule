@@ -9,7 +9,7 @@
     "test": "jest",
     "test:watch": "jest --watch",
     "test:coverage": "jest --coverage",
-    "generate-prisma": "npx prisma generate"
+    "postinstall": "npx prisma generate"
   },
   "dependencies": {
     "@aws-sdk/client-cognito-identity-provider": "^3.919.0",
