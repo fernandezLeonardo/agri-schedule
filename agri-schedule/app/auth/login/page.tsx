@@ -20,31 +20,27 @@ export default function LoginPage() {
     const res = await fetch("/api/login", {
       method: "POST",
       headers: {"Content-Type" : "application/json"},
+      credentials: 'include',
       body: JSON.stringify({email, password})
     })
 
     const response = await res.json()
     const message = response.message
-    const tokens = response.tokens
 
     setMessage(message)
     console.log(message);
     if (message === "Welcome Volunteer!"){
-      // Validate token
-      fetch ("/api/volunteer", {
+      // Call protected volunteer endpoint; cookies (access token) are sent automatically
+      await fetch ("/api/volunteer", {
         method: "POST",
-        headers: {
-          Authorization: tokens.AccessToken,
-        }
+        credentials: 'include'
       })
       router.push("/volunteer")
     } else {
-      // Validate token
-      fetch ("/api/admin", {
+      // Call protected admin endpoint; cookies (access token) are sent automatically
+      await fetch ("/api/admin", {
         method: "POST",
-        headers: {
-          Authorization: tokens.AccessToken,
-        }
+        credentials: 'include'
       })
       router.push("/admin")
     }
