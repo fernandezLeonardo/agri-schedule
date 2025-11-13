@@ -20,3 +20,18 @@ model User{
   password String
   role String @default("VOLUNTEER")
 }
+
+enum Condition {
+  NEW
+  GOOD
+  FAIR
+  POOR
+  BROKEN
+}
+
+model InventoryItem {
+  id        String    @id @default(cuid())
+  name      String    @unique
+  quantity  Int       @default(0)
+  condition Condition @default(NEW)
+}
