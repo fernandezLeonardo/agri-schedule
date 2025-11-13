@@ -6,11 +6,11 @@ import { useState } from "react";
 export type InventoryItem = {
   id: string;
   name: string;
-  qty: number;
-  condition?: string;
+  quantity: number;
+  condition: "NEW" | "GOOD" | "FAIR" | "POOR" | "BROKEN";
 };
 
-const CONDITIONS = ["New", "Good", "Fair", "Poor", "Broken"] as const;
+const CONDITIONS = ["NEW", "GOOD", "FAIR", "POOR", "BROKEN"] as const;
 
 export function InventoryTable({
   items,
@@ -32,6 +32,7 @@ export function InventoryTable({
             <th className="py-2 pr-3">Actions</th>
           </tr>
         </thead>
+
         <tbody>
           {items.map((it) => (
             <EditableRow
@@ -61,6 +62,7 @@ function EditableRow({
 
   return (
     <tr className="border-b border-foreground/10">
+      {/* NAME */}
       <td className="py-2 pr-3">
         {editing ? (
           <input
@@ -73,27 +75,31 @@ function EditableRow({
         )}
       </td>
 
+      {/* QUANTITY */}
       <td className="py-2 pr-3">
         {editing ? (
           <input
             type="number"
             className="rounded-lg border border-foreground/20 px-2 py-1 w-24"
-            value={draft.qty}
+            value={draft.quantity}
             onChange={(e) =>
-              setDraft({ ...draft, qty: Number(e.target.value) })
+              setDraft({ ...draft, quantity: Number(e.target.value) })
             }
           />
         ) : (
-          draft.qty
+          draft.quantity
         )}
       </td>
 
+      {/* CONDITION */}
       <td className="py-2 pr-3">
         {editing ? (
           <select
             className="rounded-lg border border-foreground/20 px-2 py-1"
-            value={draft.condition || "Good"}
-            onChange={(e) => setDraft({ ...draft, condition: e.target.value })}
+            value={draft.condition}
+            onChange={(e) =>
+              setDraft({ ...draft, condition: e.target.value as InventoryItem["condition"] })
+            }
           >
             {CONDITIONS.map((c) => (
               <option key={c} value={c}>
@@ -102,10 +108,11 @@ function EditableRow({
             ))}
           </select>
         ) : (
-          draft.condition || "—"
+          draft.condition
         )}
       </td>
 
+      {/* ACTIONS */}
       <td className="py-2 pr-3">
         <div className="flex gap-2">
           {!editing && (
@@ -116,6 +123,7 @@ function EditableRow({
               Edit
             </button>
           )}
+
           {editing && (
             <>
               <button
@@ -127,6 +135,7 @@ function EditableRow({
               >
                 Save
               </button>
+
               <button
                 className="rounded-lg border px-2 py-1"
                 onClick={() => {
@@ -138,6 +147,7 @@ function EditableRow({
               </button>
             </>
           )}
+
           <button
             className="rounded-lg border px-2 py-1"
             onClick={() => onDelete?.(draft.id)}
