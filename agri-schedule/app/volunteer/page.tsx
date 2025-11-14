@@ -42,17 +42,26 @@ return (
 
       {/* Main Content */}
       <div className="max-w-5xl mx-auto p-6 space-y-6">
-        <header className="text-center py-8">
-          <div className="inline-flex items-center gap-2 mb-4">
+        {/* 🌿 Pretty gradient volunteer header */}
+        <header className="text-center py-10 bg-gradient-to-br from-[#2E7D32]/15 via-[#8BC34A]/15 to-[#F4A261]/15 
+          rounded-2xl shadow-inner border border-[#2E7D32]/20 backdrop-blur-sm">
+          
+          <div className="inline-flex items-center gap-3 mb-4">
             <div className="h-12 w-12 rounded-2xl bg-[#2E7D32] text-white grid place-items-center shadow-lg">
               <svg viewBox="0 0 24 24" className="h-6 w-6" fill="currentColor">
                 <path d="M16 4c0-1.11.89-2 2-2s2 .89 2 2-.89 2-2 2-2-.89-2-2zm4 18v-6h2.5l-2.54-7.63A1.5 1.5 0 0 0 18.54 8H16c-.8 0-1.54.37-2.01 1l-2.99 4-.74-1.48A1.5 1.5 0 0 0 9 11H3c-.83 0-1.5.67-1.5 1.5S2.17 14 3 14h5.5l1.5 3h9v5z"/>
               </svg>
             </div>
           </div>
-          <h1 className="text-3xl font-semibold text-[#2E7D32] mb-2">Volunteer Dashboard</h1>
-          <p className="text-foreground/70">Track your volunteer hours and upcoming farm shifts</p>
+
+          <h1 className="text-3xl font-semibold text-[#2E7D32] mb-1">
+            Volunteer Dashboard
+          </h1>
+          <p className="text-foreground/70 max-w-md mx-auto">
+            Track your volunteer hours and upcoming farm shifts.
+          </p>
         </header>
+
 
 
         <section className="grid grid-cols-1 sm:grid-cols-3 gap-4">

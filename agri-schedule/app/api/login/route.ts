@@ -1,75 +1,87 @@
-import { PrismaClient } from "@/lib/generated/prisma";
+// app/api/login/route.ts
 import { NextRequest, NextResponse } from "next/server";
-import { InitiateAuthCommand } from "@aws-sdk/client-cognito-identity-provider";
+import {
+  InitiateAuthCommand,
+} from "@aws-sdk/client-cognito-identity-provider";
 import { cognitoClient } from "@/lib/cognito";
+import { PrismaClient } from "@/lib/generated/prisma";
 
 const prisma = new PrismaClient();
 
-export async function POST(req: NextRequest){
-    const body = await req.json();
-    const email = body.email;
-    const password = body.password;
+export async function POST(req: NextRequest) {
+  const { email, password } = await req.json();
 
-    // use Cognito
-    const command = new InitiateAuthCommand({
-        AuthFlow: "USER_PASSWORD_AUTH",
-        AuthParameters: {
-            USERNAME: email,
-            PASSWORD: password,
-        },
-        ClientId: process.env.CLIENT_ID,
+  if (!email || !password) {
+    return NextResponse.json(
+      { error: "Email and password are required." },
+      { status: 400 }
+    );
+  }
+
+  const command = new InitiateAuthCommand({
+    AuthFlow: "USER_PASSWORD_AUTH",
+    ClientId: process.env.CLIENT_ID,
+    AuthParameters: {
+      USERNAME: email,
+      PASSWORD: password,
+    },
+  });
+
+  try {
+    const resp = await cognitoClient.send(command);
+
+    const auth = resp.AuthenticationResult;
+    if (!auth?.IdToken) {
+      throw new Error("No IdToken returned from Cognito");
+    }
+
+    const [, payloadBase64] = auth.IdToken.split(".");
+    const payloadJson = Buffer.from(payloadBase64, "base64").toString("utf8");
+    const payload = JSON.parse(payloadJson) as { sub: string; email?: string };
+
+    const user = await prisma.user.findUnique({
+      where: { id: payload.sub },
     });
 
-    try{
-        const login = await cognitoClient.send(command);
-        const tokens = login.AuthenticationResult;
-
-        const user = await prisma.user.findUnique({
-            where: { email: email }
-        });
-
-        let msg = user?.role === "VOLUNTEER" ? "Welcome Volunteer!" : "Welcome Admin!";
-
-        // Prepare response and set secure httpOnly cookies for tokens
-        const res = NextResponse.json({ message: msg });
-
-        if (tokens?.AccessToken) {
-            res.cookies.set({
-                name: 'access_token',
-                value: tokens.AccessToken,
-                httpOnly: true,
-                secure: process.env.NODE_ENV === 'production',
-                sameSite: 'lax',
-                path: '/',
-                maxAge: tokens.ExpiresIn ?? 3600,
-            });
-        }
-        if (tokens?.RefreshToken) {
-            // refresh token lifetime: keep longer (example 30 days)
-            res.cookies.set({
-                name: 'refresh_token',
-                value: tokens.RefreshToken,
-                httpOnly: true,
-                secure: process.env.NODE_ENV === 'production',
-                sameSite: 'lax',
-                path: '/',
-                maxAge: 60 * 60 * 24 * 30,
-            });
-        }
-        if (tokens?.IdToken) {
-            res.cookies.set({
-                name: 'id_token',
-                value: tokens.IdToken,
-                httpOnly: true,
-                secure: process.env.NODE_ENV === 'production',
-                sameSite: 'lax',
-                path: '/',
-                maxAge: tokens.ExpiresIn ?? 3600,
-            });
-        }
-
-        return res;
-    } catch (error: any){
-        return NextResponse.json({message: error.message}, { status: 500 });
+    if (!user) {
+      return NextResponse.json(
+        { error: "User not found in local DB." },
+        { status: 404 }
+      );
     }
+
+    const res = NextResponse.json({
+      message: "Login successful",
+      user: {
+        id: user.id,
+        email: user.email,
+        role: user.role, // 👈 THIS is what we’ll use on the frontend
+      },
+    });
+
+    // set cookie so other APIs can use getCurrentUser
+    res.cookies.set("idToken", auth.IdToken, {
+      httpOnly: true,
+      secure: process.env.NODE_ENV === "production",
+      sameSite: "lax",
+      path: "/",
+      maxAge: auth.ExpiresIn ?? 3600,
+    });
+
+    return res;
+  } catch (error: any) {
+    console.error("LOGIN ERROR:", error);
+
+    if (error.__type === "NotAuthorizedException") {
+      return NextResponse.json(
+        { error: "Incorrect email or password." },
+        { status: 401 }
+      );
+    }
+
+    return NextResponse.json(
+      { error: error.message ?? "Login failed" },
+      { status: 401 }
+    );
+  }
 }

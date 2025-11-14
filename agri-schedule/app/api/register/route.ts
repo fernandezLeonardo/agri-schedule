@@ -1,17 +1,24 @@
+// app/api/register/route.ts
 import { NextRequest, NextResponse } from "next/server";
 import { PrismaClient } from "@/lib/generated/prisma";
 import { SignUpCommand } from "@aws-sdk/client-cognito-identity-provider";
 import { cognitoClient } from "@/lib/cognito";
-import bcrypt from "bcrypt"; // ⬅️ NEW
+import bcrypt from "bcrypt";
 
 const prisma = new PrismaClient();
 
 export async function POST(req: NextRequest) {
   const body = await req.json();
-  const email = body.email;
-  const password = body.password;
+  const email: string = body.email;
+  const password: string = body.password;
 
-  // use Cognito with plaintext password (it will hash internally)
+  if (!email || !password) {
+    return NextResponse.json(
+      { message: "Email and password are required." },
+      { status: 400 }
+    );
+  }
+
   const command = new SignUpCommand({
     ClientId: process.env.CLIENT_ID,
     Username: email,
@@ -26,14 +33,25 @@ export async function POST(req: NextRequest) {
       throw new Error("No CognitoID returned. Error 500.");
     }
 
-    // 🔐 hash password *before* saving to your DB
     const hashedPassword = await bcrypt.hash(password, 10);
+
+    // --- ROLE LOGIC USING ADMIN_EMAILS ---
+    // ADMIN_EMAILS in .env, e.g.
+    // ADMIN_EMAILS=lili@gmail.com,chris@gmail.com,leo@gmail.com
+    const adminEmailsEnv = process.env.ADMIN_EMAILS ?? "";
+    const adminEmails = adminEmailsEnv
+      .split(",")
+      .map((e) => e.trim().toLowerCase())
+      .filter(Boolean);
+
+    const isAdmin = adminEmails.includes(email.toLowerCase());
 
     await prisma.user.create({
       data: {
-        id: register.UserSub,
+        id: register.UserSub,   // Cognito sub
         email,
-        password: hashedPassword, // ⬅️ store hash, not plain text
+        password: hashedPassword,
+        role: isAdmin ? "ADMIN" : "VOLUNTEER",
       },
     });
 
