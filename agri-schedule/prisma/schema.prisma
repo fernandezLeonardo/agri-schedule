@@ -18,6 +18,7 @@ model User{
   id  String @id
   email String @unique
   role String @default("VOLUNTEER")
+  password String
 }
 
 enum Condition {
@@ -32,5 +33,7 @@ model InventoryItem {
   id        String    @id @default(cuid())
   name      String    @unique
   quantity  Int       @default(0)
-  condition Condition @default(NEW)
+  condition String 
 }
+
+
