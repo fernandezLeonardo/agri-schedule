@@ -1,6 +1,8 @@
 import { CognitoJwtVerifier } from "aws-jwt-verify";
 import { PrismaClient } from "@/lib/generated/prisma";
 import { NextRequest, NextResponse } from "next/server";
+import { CreateEventForm } from "@/components/forms/create-event-form";
+
 
 const prisma = new PrismaClient;
 

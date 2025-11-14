@@ -14,12 +14,6 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model User{
-  id  String @id
-  email String @unique
-  role String @default("VOLUNTEER")
-  password String
-}
 
 enum Condition {
   NEW
@@ -37,3 +31,63 @@ model InventoryItem {
 }
 
 
+enum Role {
+  ADMIN
+  VOLUNTEER
+}
+
+model User {
+  id       String @id
+  email    String @unique
+  role     Role   @default(VOLUNTEER)
+  password String
+
+  createdEvents VolunteerEvent[] @relation("EventCreator")
+  shiftSignups  ShiftSignup[]
+}
+
+model VolunteerEvent {
+  id          String   @id @default(cuid())
+  name        String
+  description String?
+  location    String?
+  // You can store just start, or start + end
+  startTime   DateTime
+  endTime     DateTime?
+
+  // who created it
+  createdBy     User   @relation("EventCreator", fields: [createdById], references: [id])
+  createdById   String
+
+  shifts      Shift[]
+
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
+model Shift {
+  id            String          @id @default(cuid())
+  event         VolunteerEvent  @relation(fields: [eventId], references: [id], onDelete: Cascade)
+  eventId       String
+
+  name          String?   // e.g. "Morning shift"
+  startTime     DateTime
+  endTime       DateTime
+  maxVolunteers Int
+
+  signups       ShiftSignup[]
+}
+
+model ShiftSignup {
+  id        String @id @default(cuid())
+
+  shift     Shift  @relation(fields: [shiftId], references: [id], onDelete: Cascade)
+  shiftId   String
+
+  user      User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId    String
+
+  createdAt DateTime @default(now())
+
+  @@unique([shiftId, userId])
+}
