@@ -29,11 +29,29 @@ type AdminEvent = {
 };
 
 export default function AdminHome() {
+  const [userId, setUserId] = useState<string | null>(null);
   const [events, setEvents] = useState<AdminEvent[]>([]);
   const [inventory, setInventory] = useState<InventoryItem[]>([]);
   const [loadingInventory, setLoadingInventory] = useState(true);
   const [loadingEvents, setLoadingEvents] = useState(true);
   const [eventsError, setEventsError] = useState<string | null>(null);
+
+  useEffect(() => {
+    const loadUser = async () => {
+      try {
+        const res = await fetch("/api/auth/me", { credentials: "include" });
+        const data = await res.json();
+        if (data?.id) setUserId(data.id);
+        if (data?.role !== "ADMIN") {
+          window.location.href = "/volunteer"
+        }
+      } catch (err) {
+        console.error("Failed to load user:", err);
+      }
+    };
+
+    loadUser();
+  }, []);
 
   // -----------------------------
   // Load inventory from DB
