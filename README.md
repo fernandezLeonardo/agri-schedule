@@ -11,17 +11,17 @@ Be sure that the terminal path is for the project, not just the repository folde
 
 **Step 1.** Run ```npm install``` to install dependencies.
 
-**Step 2.** Create a ```.env``` file in which to store values of both *AWS Database* and *Cognito*.
+**Step 2.** Create a ```.env``` file in which to store values of both *AWS Database* and *Cognito*. *Contact Leonardo Fernandez for values.*
 
 ```bash
 # Amazon AWS Database
-DATABASE_URL="mysql://admin:3GB84Sl58V5Az8vJQTgy@database-1.crqegig6o0qv.us-east-2.rds.amazonaws.com:3306/database-1"
+DATABASE_URL=[REDACTED]
 ```
 
 ```bash
 # Amazon Cognito
-USER_POOL_ID="us-east-2_LdWryHu94"
-CLIENT_ID="6m7lm83q4htso0s0hhfuf41shn"
+USER_POOL_ID=[REDACTED]
+CLIENT_ID=[REDACTED]
 ```
 
 **Step 3.** Run ```npm run dev``` to start the website.
