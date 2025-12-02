@@ -44,6 +44,7 @@ model User {
 
   createdEvents VolunteerEvent[] @relation("EventCreator")
   shiftSignups  ShiftSignup[]
+  hoursCompleted Int @default(0)
 }
 
 model VolunteerEvent {

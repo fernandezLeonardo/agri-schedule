@@ -19,6 +19,7 @@ export default function VolunteerHome() {
   const [userId, setUserId] = useState<string | null>(null);
   const [events, setEvents] = useState<DBEvent[]>([]);
   const [signedUp, setSignedUp] = useState<DBEvent[]>([]);
+  const [totalHours, setTotalHours] = useState<number>();
   const [loading, setLoading] = useState(true);
 
   // -------------------------------------------------
@@ -133,8 +134,24 @@ export default function VolunteerHome() {
     }),
     location: e.location || "Unknown",
   });
+  
+  // Get total hours completed
+  useEffect(() => {
+    if (!userId) return;
 
-  const totalHours = useMemo(() => 0, []);
+    const getHoursCompleted = async () => {
+      try {
+        const res = await fetch(`/api/hours-completed?user=${userId}`);
+        const hoursCompletedData = await res.json();
+        const hours = hoursCompletedData.hoursCompleted;
+        setTotalHours(hours);
+      } catch (err) {
+        console.error("Failed to get hours completed:", err);
+      }
+    };
+
+    getHoursCompleted();
+  }, [userId]);
 
   // -------------------------------------------------
   // UI
